@@ -3,10 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temporizador</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Cumpleaños de Abi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+      color: #fff;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    #titulo {
+        font-family: "Playwrite IN", serif;
+      font-size: 2.5em;
+      font-weight: 600vw;
+      margin-bottom: 20px;
+    }
+
+    #temporizador {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 1.5em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .time:last-child {
+      border-bottom: none;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 1.8em;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .time {
+        font-size: 1.2em;
+      }
+
+      span {
+        font-size: 1.5em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div id="titulo"><h3>🎉 PARA ABI 🎉</h3></div>
   <div id="temporizador">
     <div class="time">
       <span id="dias"></span> días
@@ -21,7 +91,39 @@
       <span id="segundos"></span> segundos
     </div>
   </div>
-  
-  <script src="main.js"></script>
+
+  <script>
+    // Fecha de destino para el temporizador (año, mes, día, hora, minuto, segundo)
+    const fechaDestino = new Date("2025-02-02T23:54:59");
+
+    function actualizarTemporizador() {
+      const ahora = new Date();
+      const diferencia = fechaDestino - ahora;
+
+      // Calcular días, horas, minutos y segundos
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+      // Mostrar los valores en el HTML
+      document.getElementById("dias").textContent = dias;
+      document.getElementById("horas").textContent = horas;
+      document.getElementById("minutos").textContent = minutos;
+      document.getElementById("segundos").textContent = segundos;
+
+      // Si ya ha llegado a la fecha, muestra un mensaje
+      if (diferencia <= 0) {
+        clearInterval(intervalo); // Detener el temporizador
+        document.getElementById("temporizador").innerHTML = "<h2>¡Feliz cumpleaños, Abi!</h2><p>Código: <strong>[TÚ CÓDIGO AQUÍ]</strong></p>";
+      }
+    }
+
+    // Actualizar el temporizador cada segundo
+    const intervalo = setInterval(actualizarTemporizador, 1000);
+
+    // Ejecutar la función una vez al cargar para mostrar los valores de inmediato
+    actualizarTemporizador();
+  </script>
 </body>
 </html>
