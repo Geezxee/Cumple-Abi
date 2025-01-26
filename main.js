@@ -1,5 +1,5 @@
 // Fecha de destino para el temporizador (año, mes, día, hora, minuto, segundo)
-const fechaDestino = new Date("2025-02-02T23:45:59");
+const fechaDestino = new Date("2025-02-02T23:54:59");
 
 function actualizarTemporizador() {
   const ahora = new Date();
